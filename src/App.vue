@@ -15,7 +15,7 @@ export default {
     this.fetchWeatherDaily();
   },
   methods: {
-    ...mapActions("weather", ["fetchWeather"])
+    ...mapActions("weather", ["fetchWeather", "fetchWeatherDaily"])
   }
 };
 </script>

@@ -8,8 +8,9 @@ async function geoFindMe() {
   };
 }
 
-geoFindMe()
-  .then(result => {
-    return result;
-  })
-  .catch(err => console.log(err));
+export default geoFindMe();
+// geoFindMe()
+//   .then(result => {
+//     return result;
+//   })
+//   .catch(err => console.log(err));

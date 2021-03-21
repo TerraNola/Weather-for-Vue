@@ -7,19 +7,18 @@ function parseResponse(response) {
   return JSON.parse(response);
 }
 
-const { WEATHER, WEATHERDAILY } = mutations;
+const { WEATHER } = mutations;
+const { WEATHERDAILY } = mutations;
 
 const weatherStore = {
   namespaced: true,
   state: {
     cities: Cities,
-    geo: geoFindMe(),
     weather: {},
     weatherDaily: {}
   },
   getters: {
-    CityObj: ({ cities }) => cities,
-    GetGeo: geoFindMe()
+    CityObj: ({ cities }) => cities
   },
   mutations: {
     [WEATHER](state, value) {
@@ -30,11 +29,16 @@ const weatherStore = {
     }
   },
   actions: {
-    async fetchWeather({ getters, commit }) {
+    async fetchWeather({ commit }) {
       try {
-        const { GetGeo } = getters;
-        const getLatLon = await GetGeo;
-        let { lon, lat } = getLatLon;
+        let res = await geoFindMe()
+          .then(result => {
+            return result;
+          })
+          .catch(err => console.log(err));
+        console.log(res);
+        let { lon, lat } = res;
+        console.log(lon, lat);
         const getCurrentWeather = axios.get(`/current?lat=${lat}&lon=${lon}`);
         const response = await getCurrentWeather;
         const weather = parseResponse(response);
@@ -44,11 +48,16 @@ const weatherStore = {
         console.log(err);
       }
     },
-    async fetchWeatherDaily({ getters, commit }) {
+    async fetchWeatherDaily({ commit }) {
       try {
-        const { GetGeo } = getters;
-        const getLatLon = await GetGeo;
-        let { lon, lat } = getLatLon;
+        let res = await geoFindMe()
+          .then(result => {
+            return result;
+          })
+          .catch(err => console.log(err));
+        console.log(res);
+        let { lon, lat } = res;
+        console.log(lon, lat);
         const getDailyWeather = axios.get(
           `/forecast/daily?lat=${lat}&lon=${lon}`
         );
