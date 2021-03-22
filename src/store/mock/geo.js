@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 async function geoFindMe() {
   const pos = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -8,9 +9,4 @@ async function geoFindMe() {
   };
 }
 
-export default geoFindMe();
-// geoFindMe()
-//   .then(result => {
-//     return result;
-//   })
-//   .catch(err => console.log(err));
+export default geoFindMe;
