@@ -1,4 +1,0 @@
-export default {
-  WEATHER: "WEATHER",
-  WEATHERDAILY: "WEATHERDAILY"
-};
