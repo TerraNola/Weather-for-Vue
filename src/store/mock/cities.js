@@ -22354,3 +22354,4 @@ const cities = {
     "Bognor Regis": null,
     "Berwick-Upon-Tweed": null
 }
+export default cities;

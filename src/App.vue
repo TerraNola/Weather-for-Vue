@@ -1,15 +1,21 @@
 <template>
   <div id="app">
-    <b-button>Button</b-button>
+    <WeatherList :list="weatherList" />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import WeatherList from "@/components/WeatherList";
 
 export default {
   name: "app",
-  components: {},
+  components: {
+    WeatherList
+  },
+  computed: {
+    ...mapGetters("weather", ["weatherList", "weatherDailyList"])
+  },
   mounted() {
     this.fetchWeather();
     this.fetchWeatherDaily();

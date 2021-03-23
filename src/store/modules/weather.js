@@ -2,14 +2,17 @@ import Cities from "@/store/mock/cities";
 import axios from "@/plugins/axios";
 import mutations from "@/store/mutations";
 import geoFindMe from "@/store/mock/geo";
-console.log(geoFindMe());
 
-// function parseResponse(response) {
-//   return JSON.parse(response);
-// }
 //
 // Это же надо было так наговнокодить/ Сейчас, вроде, все работает.
 //
+
+function transformResponse(object) {
+  return object.data.data[0];
+}
+function transformResponseDaily(object) {
+  return object.data.data;
+}
 
 const { WEATHER } = mutations;
 const { WEATHERDAILY } = mutations;
@@ -22,7 +25,9 @@ const weatherStore = {
     weatherDaily: {}
   },
   getters: {
-    CityObj: ({ cities }) => cities
+    CityObj: ({ cities }) => cities,
+    weatherList: ({ weather }) => weather,
+    weatherDailyList: ({ weatherDaily }) => weatherDaily
   },
   mutations: {
     [WEATHER](state, value) {
@@ -43,9 +48,9 @@ const weatherStore = {
           `/current?lat=${lat}&lon=${lon}&key=9043238e847141ea8c6d598199e07411`
         );
         const response = await getCurrentWeather;
-        // const weather = parseResponse(response);
-        console.log(response);
-        commit(WEATHER, response);
+        const newResponse = transformResponse(response);
+        console.log(newResponse);
+        commit(WEATHER, newResponse);
       } catch (err) {
         console.log(err);
       }
@@ -60,9 +65,9 @@ const weatherStore = {
           `/forecast/daily?lat=${lat}&lon=${lon}&key=9043238e847141ea8c6d598199e07411`
         );
         const response = await getDailyWeather;
-        // const weatherDaily = parseResponse(response);
+        const newResponse = transformResponseDaily(response);
         console.log(response);
-        commit(WEATHERDAILY, response);
+        commit(WEATHERDAILY, newResponse);
       } catch (err) {
         console.log(err);
       }
