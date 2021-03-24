@@ -38,6 +38,13 @@ const weatherStore = {
     }
   },
   actions: {
+    initWeatherStore: {
+      handler({ dispatch }) {
+        dispatch("fetchWeather");
+        dispatch("fetchWeatherDaily");
+      },
+      root: true
+    },
     async fetchWeather({ commit }) {
       try {
         let res = await geoFindMe();

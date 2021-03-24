@@ -4,7 +4,7 @@ import weather from "./modules/weather";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
@@ -12,3 +12,7 @@ export default new Vuex.Store({
     weather
   }
 });
+
+store.dispatch("initWeatherStore");
+
+export default store;

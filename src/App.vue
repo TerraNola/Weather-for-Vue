@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <WeatherList :list="weatherList" />
+    <WeatherList :weather="weatherList" />
   </div>
 </template>
 
@@ -17,8 +17,8 @@ export default {
     ...mapGetters("weather", ["weatherList", "weatherDailyList"])
   },
   mounted() {
-    this.fetchWeather();
-    this.fetchWeatherDaily();
+    // this.fetchWeather();
+    // this.fetchWeatherDaily();
   },
   methods: {
     ...mapActions("weather", ["fetchWeather", "fetchWeatherDaily"])
