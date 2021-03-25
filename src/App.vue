@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <MasterComp :CityArr="CityArr" />
     <WeatherList :weather="weatherList" />
   </div>
 </template>
@@ -7,14 +8,16 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import WeatherList from "@/components/WeatherList";
+import MasterComp from "@/components/MasterComp";
 
 export default {
   name: "app",
   components: {
+    MasterComp,
     WeatherList
   },
   computed: {
-    ...mapGetters("weather", ["weatherList", "weatherDailyList"])
+    ...mapGetters("weather", ["weatherList", "weatherDailyList", "CityArr"])
   },
   mounted() {
     // this.fetchWeather();
