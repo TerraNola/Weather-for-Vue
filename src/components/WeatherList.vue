@@ -1,9 +1,8 @@
 <template>
-  <b-container class="bg-dark">
+  <b-container fluid class="bg-dark">
     <b-row class="h-60 text-white">
-      <b-col class="text-center"
-        ><h3 class="list-title">You best weather app</h3>
-        <p>City: {{ weather.city_name }}</p>
+      <b-col class="text-center">
+        <p>Вы находитесь в: {{ weather.city_name }}</p>
         <template v-if="weather.weather">
           <p>
             <img
@@ -17,17 +16,20 @@
     </b-row>
     <b-row class="h-30 text-white">
       <b-col class="text-center mt-3"
-        ><p>Температура: {{ weather.app_temp }}°</p>
-        <p>Ощущаемая температура": {{ weather.app_temp }}</p>
+        ><p>Температура: {{ weather.app_temp + SelectedCelsius }}°</p>
+        <p>Ощущаемая температура": {{ weather.app_temp + SelectedCelsius }}</p>
       </b-col>
       <b-col class="text-center mt-3">
         <p>Направление ветра:{{ weather.wind_cdir_full }}</p>
         <p>Скорость ветра: {{ weather.wind_spd }} m/s</p></b-col
       >
-      <b-col class="d-flex align-items-center">
-        <p>Атмосферное давление: {{ weather.pres * 0.75 }} рт. ст.</p>
+      <b-col class="text-center mt-3">
+        <p>
+          Атмосферное давление:
+          {{ weather.pres * 0.75 }} рт. ст.
+        </p>
       </b-col>
-      <b-col class="d-flex align-items-center">
+      <b-col class="text-center mt-3">
         <p>Относительная влажность: {{ weather.rh }}%</p></b-col
       >
     </b-row>
@@ -44,6 +46,14 @@ export default {
       type: Object,
       default: () => ({})
     }
+  },
+  data: () => ({
+    SelectedCelsius: 0
+  }),
+  created() {
+    this.$eventHub.$on("valchange", num => {
+      this.SelectedCelsius = num;
+    });
   }
 };
 </script>
@@ -53,9 +63,9 @@ export default {
   margin-bottom: 30px;
 }
 .h-60 {
-  height: 60%;
+  height: 60vh;
 }
 .h-30 {
-  height: 30%;
+  height: 30vh;
 }
 </style>
