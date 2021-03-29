@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="bg-dark">
+  <b-container fluid class="bg-blue">
     <b-row class="h-60 text-white">
       <b-col class="text-center">
         <p>Вы находитесь в: {{ weather.city_name }}</p>
@@ -11,6 +11,7 @@
               "
             />
           </p>
+          <p class="p-temp">{{ weather.app_temp + SelectedCelsius }}°</p>
         </template>
       </b-col>
     </b-row>
@@ -21,16 +22,16 @@
       </b-col>
       <b-col class="text-center mt-3">
         <p>Направление ветра:{{ weather.wind_cdir_full }}</p>
-        <p>Скорость ветра: {{ weather.wind_spd }} m/s</p></b-col
+        <p>Скорость ветра: {{ Math.round(weather.wind_spd) }} m/s</p></b-col
       >
       <b-col class="text-center mt-3">
         <p>
           Атмосферное давление:
-          {{ weather.pres * 0.75 }} рт. ст.
+          {{ Math.round(weather.pres * 0.75) }} рт. ст.
         </p>
       </b-col>
       <b-col class="text-center mt-3">
-        <p>Относительная влажность: {{ weather.rh }}%</p></b-col
+        <p>Относительная влажность: {{ Math.round(weather.rh) }}%</p></b-col
       >
     </b-row>
 
@@ -67,5 +68,11 @@ export default {
 }
 .h-30 {
   height: 30vh;
+}
+.p-temp {
+  font-size: 400%;
+}
+.bg-blue {
+  background-color: #4b8bec;
 }
 </style>

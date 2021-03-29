@@ -12,13 +12,16 @@ function transformResponseDaily(object) {
 
 const { WEATHER } = mutations;
 const { WEATHERDAILY } = mutations;
+const { CITY } = mutations;
 
 const weatherStore = {
   namespaced: true,
   state: {
     cities: Cities,
     weather: {},
-    weatherDaily: {}
+    weatherDaily: {},
+    city: {},
+    selectedCity: null
   },
   getters: {
     CityArr: ({ cities }) => cities,
@@ -26,6 +29,9 @@ const weatherStore = {
     weatherDailyList: ({ weatherDaily }) => weatherDaily
   },
   mutations: {
+    [CITY](state, value) {
+      state.city = value;
+    },
     [WEATHER](state, value) {
       state.weather = value;
     },
@@ -65,6 +71,18 @@ const weatherStore = {
         const response = await getDailyWeather;
         const newResponse = transformResponseDaily(response);
         commit(WEATHERDAILY, newResponse);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async fetchWeatherInCity({ commit }) {
+      try {
+        const getCurrentWeather = axios.get(
+          `/current?city=${this.selectedCity}&key=9043238e847141ea8c6d598199e07411`
+        );
+        const response = await getCurrentWeather;
+        const newResponse = transformResponse(response);
+        commit("CITY", newResponse);
       } catch (err) {
         console.log(err);
       }
